@@ -1,19 +1,19 @@
 [toc]
 
 
-##前言
+## 前言
 
 要学习NDK之前，我们得先在AndroidStudio中学习JNI，还有C和C++基础，这些都是接触NDK的前提，那么废话不多说，开始吧
 
 对于NDK在AndroidStudio的配置，可以关注我的博客找到相关文章，本文章是基于配置好NDK环境之后来操作的
 
-##效果预览
+## 效果预览
 
 ![这里写图片描述](http://img.blog.csdn.net/20170901123609445?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzAzNzk2ODk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 github：https://github.com/AndroidHensen/JNIDemo
 
-##导入依赖库
+## 导入依赖库
 
 我们先导入我们需要用到的依赖库
 
@@ -26,7 +26,7 @@ github：https://github.com/AndroidHensen/JNIDemo
 #include <android/log.h>
 ```
 
-##宏定义
+## 宏定义
 
 定义两个宏函数，用于Log输出调试
 ```
@@ -52,7 +52,7 @@ ndk{
 }
 ```
 
-##访问Java属性
+## 访问Java属性
 
 ```c
 JNIEXPORT jstring JNICALL Java_com_handsome_ndkdemo_MainActivity_accessField
@@ -79,7 +79,7 @@ JNIEXPORT jstring JNICALL Java_com_handsome_ndkdemo_MainActivity_accessField
     return new_jstr;
 }
 ```
-##访问java静态属性
+## 访问java静态属性
 
 ```c
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessStaticField
@@ -97,7 +97,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessStaticField
 }
 ```
 
-##访问java方法
+## 访问java方法
 
 ```c
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessMethod
@@ -111,7 +111,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessMethod
 }
 ```
 
-##访问java静态方法
+## 访问java静态方法
 
 ```c
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessStaticMethod
@@ -125,7 +125,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessStaticMethod
 }
 ```
 
-##访问构造方法
+## 访问构造方法
 
 使用java.util.Date产生一个当前的时间戳
 
@@ -146,7 +146,7 @@ JNIEXPORT jobject JNICALL Java_com_handsome_ndkdemo_MainActivity_accessConstruct
     return date_obj;
 }
 ```
-##调用父类的方法
+## 调用父类的方法
 
 该方法出错，还未找到解决方法
 
@@ -169,7 +169,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_accessNonvirtualMe
 }
 ```
 
-##字符串转码
+## 字符串转码
 
 字符串转码，c字符串直接给jstring时，由于编码不同会出现中文乱码问题，解决方法是采用Java的String(byte bytes[], String charsetName)构造方法
 
@@ -194,7 +194,7 @@ JNIEXPORT jstring JNICALL Java_com_handsome_ndkdemo_MainActivity_chineseChars
 }
 ```
 
-##给定一个数组进行排序并同步到Java中
+## 给定一个数组进行排序并同步到Java中
 
 ```
 int compare(int *a,int *b){
@@ -217,7 +217,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_giveArray
 }
 ```
 
-##创建一个指定大小的数组
+## 创建一个指定大小的数组
 
 ```
 JNIEXPORT jintArray JNICALL Java_com_handsome_ndkdemo_MainActivity_getArray
@@ -234,7 +234,7 @@ JNIEXPORT jintArray JNICALL Java_com_handsome_ndkdemo_MainActivity_getArray
 }
 ```
 
-##局部变量引用
+## 局部变量引用
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_localRef
@@ -251,7 +251,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_localRef
     }
 }
 ```
-##创建全局引用
+## 创建全局引用
 
 ```
 //全局引用，可以共享(跨多个线程)，手动控制内存使用
@@ -263,7 +263,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_createGlobalRef
     global_str = (*env)->NewGlobalRef(env, obj);
 }
 ```
-##获得全局引用
+## 获得全局引用
 
 ```
 JNIEXPORT jstring JNICALL Java_com_handsome_ndkdemo_MainActivity_getGlobalRef
@@ -271,7 +271,7 @@ JNIEXPORT jstring JNICALL Java_com_handsome_ndkdemo_MainActivity_getGlobalRef
     return global_str;
 }
 ```
-##释放全局引用
+## 释放全局引用
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_deleteGlobalRef
@@ -280,7 +280,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_deleteGlobalRef
 }
 ```
 
-##弱全局引用
+## 弱全局引用
 
 * 节省内存，在内存不足时可以是释放所引用的对象
 * 可以引用一个不常用的对象，如果为NULL，临时创建
@@ -288,7 +288,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_deleteGlobalRef
 
 
 
-##抛出异常处理
+## 抛出异常处理
 
 异常处理做法
 
@@ -319,7 +319,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_exeception
     }
 }
 ```
-##局部静态变量
+## 局部静态变量
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_cached
@@ -334,7 +334,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_cached
 }
 ```
 
-##初始化全局变量
+## 初始化全局变量
 
 ```
 jfieldID key_fid;
@@ -347,7 +347,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_MainActivity_initIds
 }
 ```
 
-##文件加密
+## 文件加密
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_crypt
@@ -365,7 +365,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_crypt
 }
 ```
 
-##文件解密
+## 文件解密
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_decrypt
@@ -383,7 +383,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_decrypt
 }
 ```
 
-##获取文件大小
+## 获取文件大小
 
 ```
 long get_file_size(char *path){
@@ -393,7 +393,7 @@ long get_file_size(char *path){
 }
 ```
 
-##分割文件
+## 分割文件
 
 ```
 JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_diff
@@ -465,7 +465,7 @@ JNIEXPORT void JNICALL Java_com_handsome_ndkdemo_Utils_FileUtils_diff
     (*env)->ReleaseStringUTFChars(env,path_pattern_jstr,path_pattern);
 }
 ```
-##合并文件
+## 合并文件
 
 
 ```
